@@ -1,6 +1,6 @@
 streamlit
 pandas
-os
+#os
 matplotlib
 plotly
 contextily
