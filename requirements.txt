@@ -1,0 +1,7 @@
+streamlit
+pandas
+os
+matplotlib
+plotly
+contextily
+geopandas
