@@ -1,7 +1,7 @@
 streamlit
 pandas
 #os
-matplotlib
+#matplotlib
 plotly
-contextily
-geopandas
+#geopandas
+numpy
