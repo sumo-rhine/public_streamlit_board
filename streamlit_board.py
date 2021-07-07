@@ -40,9 +40,15 @@ long_names = {#'area_km2': 'area [km2]',
             'n_carsharing_cars': 'car sharing stations / 1000 inhabitants',
             'n_parking_places': 'Parking Places',
             'parking_price': 'parking price [Euro]',
-            #'pt_stations_mobility_impaired': None,
-            #'pt_stations_mobility_impaired_uncertainty': None,
-            'pollu_regul': 'Pollution regulation'
+            'pt_stations_mobility_impaired': 'handicap-accessible stations',
+            'pt_stations_mobility_impaired_uncertainty': 'handicap-accessible stations uncertainty',
+            'pollu_regul': 'Pollution regulation',
+            'car_acc_d': 'deadly car accidents [%]',
+            'car_acc': 'car accidents [No/1000 inhab.]',
+            'bike_acc_d': 'deadly bike accidents [%]',
+            'bike_acc': 'bike accidents [No/1000 inhab.]',
+            'pedest_acc_d': 'deadly pedestrian accidents [%]',
+            'pedest_acc': 'pedestrian accidents [No/1000 inhab.]'
             }
 
 indicators = {
@@ -51,6 +57,7 @@ indicators = {
     'pollution': ['noise_rail_night', 'noise_rail_day', 'noise_road_day', 'noise_road_night'],
     'public transport': ['serv_freq', 'serv_dur', 'stop_dens', 'coverage', 'pt_stations_mobility_impaired', 'pt_stations_mobility_impaired_uncertainty'],
     'car transport': ['pollu_regul', '30kmh_speed_limit', 'parking_price', 'fuel_stat', 'carfree_streets', 'onewaystr', 'n_carsharing_cars', 'n_parking_places'],
+    'traffic_safety': ['car_acc_d', 'car_acc', 'bike_acc_d', 'bike_acc', 'pedest_acc_d', 'pedest_acc']
 }
 
 def figure1(rows, cols, indices, df, sorter, colors):
@@ -121,7 +128,7 @@ if mode == 'info':
 if mode == 'indicators':
     st.sidebar.markdown('## Please select one indicator')
     indicator = st.sidebar.selectbox('select one indicator', tuple(indicators.keys()), help='wip')
-    selection = [long_names[i] for i in indicators[indicator]]
+    selection = [long_names[i] if i in long_names.keys() else i for i in indicators[indicator]]
 
     st.sidebar.markdown('## Sort by ...')
     sorter = st.sidebar.selectbox('to sort by one of the selected subindicators, please select:', selection+info_columns)
@@ -184,7 +191,7 @@ if mode == 'cities':
     city_sel = st.sidebar.multiselect('upt ot 5 cities can be selected', df['Municipality'], help='more than 5 selected cities will result in plotting error')
 
     citydata = df.copy()
-    
+    st.write(city_sel)
     for col in subind:
         citydata[col] = citydata[col]/citydata[col].max()
 
