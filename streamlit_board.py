@@ -188,7 +188,7 @@ if mode == 'subindicators':
 
 if mode == 'cities':
     st.sidebar.markdown('## Please select cities')
-    city_sel = st.sidebar.multiselect('up to 5 cities can be selected', df['Municipality'], default=['Freiburg im Breisgau', 'Basel'], help='more than 5 selected cities will result in plotting error')
+    city_sel = st.sidebar.multiselect('up to 5 cities can be selected', df['Municipality'], default=['Freiburg im Breisgau'], help='more than 5 selected cities will result in plotting error')
 
     citydata = df.copy()
     st.write(city_sel)
