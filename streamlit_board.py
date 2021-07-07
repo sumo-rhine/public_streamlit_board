@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
-import contextily as ctx
+#import contextily as ctx
 import geopandas as gp
 from shapely import wkt
 import plotly
@@ -195,6 +195,9 @@ if mode == 'cities':
     for col in subind:
         citydata[col] = citydata[col]/citydata[col].max()
 
+    citydata.columns = [long_names[i] if i in long_names.keys() else i for i in citydata.columns]
+    subind = [long_names[i] if i in long_names.keys() else i for i in subind]
+    
     city_fig = make_subplots(rows=1, cols=5, shared_yaxes=True, subplot_titles=city_sel)
     city_fig.update_layout(height=800, showlegend=False)
 
