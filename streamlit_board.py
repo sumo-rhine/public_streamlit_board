@@ -188,7 +188,7 @@ if mode == 'subindicators':
 
 if mode == 'cities':
     st.sidebar.markdown('## Please select cities')
-    city_sel = st.sidebar.multiselect('upt ot 5 cities can be selected', df['Municipality'], help='more than 5 selected cities will result in plotting error')
+    city_sel = st.sidebar.multiselect('up to 5 cities can be selected', df['Municipality'], help='more than 5 selected cities will result in plotting error')
 
     citydata = df.copy()
     st.write(city_sel)
@@ -198,15 +198,16 @@ if mode == 'cities':
     citydata.columns = [long_names[i] if i in long_names.keys() else i for i in citydata.columns]
     subind = [long_names[i] if i in long_names.keys() else i for i in subind]
     
-    city_fig = make_subplots(rows=1, cols=5, shared_yaxes=True, subplot_titles=city_sel)
-    city_fig.update_layout(height=800, showlegend=False)
+    if city_sel != None:
+        city_fig = make_subplots(rows=1, cols=5, shared_yaxes=True, subplot_titles=city_sel)
+        city_fig.update_layout(height=800, showlegend=False)
 
-    for i, city in enumerate(city_sel):
-        city_fig.add_trace(go.Bar(x=citydata[subind].loc[city], 
-                                  y=citydata[subind].columns, 
-                                  orientation='h'), row=1, col=i+1)
+        for i, city in enumerate(city_sel):
+            city_fig.add_trace(go.Bar(x=citydata[subind].loc[city], 
+                                    y=citydata[subind].columns, 
+                                    orientation='h'), row=1, col=i+1)
 
-    st.plotly_chart(city_fig, use_container_width=True)
+        st.plotly_chart(city_fig, use_container_width=True)
 
 
 
