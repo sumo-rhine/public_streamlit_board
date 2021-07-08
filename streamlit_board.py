@@ -187,10 +187,12 @@ if mode == 'subindicators':
         st.dataframe(df[selection])
 
 if mode == 'cities':
-    st.sidebar.markdown('## Please select cities')
-    city_sel = st.sidebar.multiselect('up to 5 cities can be selected', df['Municipality'].values, help='more than 5 selected cities will result in plotting error')
 
     citydata = df.copy()
+
+    st.sidebar.markdown('## Please select cities')
+    city_sel = st.sidebar.multiselect('up to 5 cities can be selected', citydata['Municipality'].values, help='more than 5 selected cities will result in plotting error')
+
     for col in subind:
         citydata[col] = citydata[col]/citydata[col].max()
 
