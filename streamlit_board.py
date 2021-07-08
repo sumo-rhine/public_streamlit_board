@@ -191,7 +191,9 @@ if mode == 'cities':
     citydata = df.copy()
 
     st.sidebar.markdown('## Please select cities')
-    city_sel = st.sidebar.multiselect('up to 5 cities can be selected', citydata['Municipality'].values, help='more than 5 selected cities will result in plotting error')
+    city_sel = st.sidebar.multiselect('up to 5 cities can be selected', tuple(citydata['Municipality'].values), help='more than 5 selected cities will result in plotting error')
+
+    #st.write(tuple(citydata['Municipality'].values))
 
     for col in subind:
         citydata[col] = citydata[col]/citydata[col].max()
