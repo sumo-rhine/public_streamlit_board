@@ -10,46 +10,12 @@ from plotly.subplots import make_subplots
 #from shapely import wkt
 import plotly
 import numpy as np
+import json
 
 BASEPATH = os.path.abspath(os.path.dirname(__file__))
 
-long_names = {#'area_km2': 'area [km2]',
-            'Municipality': 'Municipality',
-            'Country': 'Country',
-            'Population': 'Population',
-            'noise_rail_night': 'Rail Noise Exposure Night >55dB [%]',
-            'noise_rail_day': 'Rail Noise Exposure Day >55dB [%]',
-            'noise_road_day': 'Road Noise Exposure Day >55dB [%]',
-            'noise_road_night': 'Road Noise Exposure Night >55dB [%]',
-            '30kmh_speed_limit': 'Speed Limit <= 30 kmh [%]',
-            'pedest_street_dens': 'streets accessible by pedestrians [%]',
-            'low_traffic_vol': 'Streets with low traffic volumn [%]',
-            'green_area': 'green area with NDVI >0.7 [%]',
-            'park_area': 'urban park area [%]',
-            'walk_stim_fac': 'facilities stimulating walking [no/km2]',
-            'heavy_vehicles': 'streets accessible for heavy vehicles [%]',
-            'serv_freq': 'mean trips per day and station [trips/day]',
-            'serv_dur': 'mean time of service availabilty [% of day]',
-            'stop_dens': 'Stop density [stops/km2]',
-            'coverage': 'population in 5 min walking distance to public transport [%]',
-            'fuel_stat': 'fuel stations per 1000 inhabitant',
-            'carfree_streets': '[%] of car free streets',
-            'onewaystr': '[%] of one way streets',
-            'pop_near_park': 'population within walking distance to parks [%]',
-            'n_bikesharing_bikes': 'bike sharing stations / 1000 inhabitants',
-            'n_carsharing_cars': 'car sharing stations / 1000 inhabitants',
-            'n_parking_places': 'Parking Places',
-            'parking_price': 'parking price [Euro]',
-            'pt_stations_mobility_impaired': 'handicap-accessible stations',
-            'pt_stations_mobility_impaired_uncertainty': 'handicap-accessible stations uncertainty',
-            'pollu_regul': 'Pollution regulation',
-            'car_acc_d': 'deadly car accidents [%]',
-            'car_acc': 'car accidents [No/1000 inhab.]',
-            'bike_acc_d': 'deadly bike accidents [%]',
-            'bike_acc': 'bike accidents [No/1000 inhab.]',
-            'pedest_acc_d': 'deadly pedestrian accidents [%]',
-            'pedest_acc': 'pedestrian accidents [No/1000 inhab.]'
-            }
+with open(BASEPATH+'/names_dict.json', 'r') as file:
+    long_names = json.load(file)
 
 indicators = {
     'bikeability': ['30kmh_speed_limit', 'low_traffic_vol', 'heavy_vehicles', 'n_bikesharing_bikes'],
