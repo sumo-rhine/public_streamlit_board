@@ -11,8 +11,14 @@ from plotly.subplots import make_subplots
 import plotly
 import numpy as np
 import json
+from pathlib import Path
 
 BASEPATH = os.path.abspath(os.path.dirname(__file__))
+
+def read_markdown_file(markdown_file):
+    return Path(markdown_file).read_text()
+
+test = read_markdown_file(BASEPATH+'/docs/test.md')
 
 with open(BASEPATH+'/names_dict.json', 'r') as file:
     long_names = json.load(file)
@@ -67,6 +73,8 @@ st.write('''
 # Sustainable Mobility in the Upper Rhine Region 
 ''')
 
+# st.markdown(test, unsafe_allow_html=True)
+
 st.sidebar.markdown('## Please select view')
 mode = st.sidebar.selectbox('different data visualization can be selected', ['info', 'cities', 'indicators', 'subindicators'], help='compare cities or indicators')
 
@@ -110,6 +118,26 @@ if mode == 'indicators':
     
     selection = [{v: k for k, v in long_names.items()}[i] for i in selection]
     sorter = {v: k for k, v in long_names.items()}[sorter]
+    
+    st.write('# here is the definition of indicator {}'.format(indicator))
+    col1, col2 = st.beta_columns(2)
+    for no, i in enumerate(selection):
+        # titles = [long_names[i] if i in long_names.keys() else i for i in indices]
+        try:
+            template = read_markdown_file(BASEPATH+'/docs/{}.md'.format(i))
+        except FileNotFoundError:
+            template = read_markdown_file(BASEPATH+'/docs/template_sind.md')
+        
+        if (no%2)==0:
+            with col1:
+                with st.beta_expander('definition for subindicator {}'.format(long_names[i])):
+                    #st.write('here will be displayed the content of file {}.md'.format(i))
+                    st.write(template)
+        else:
+            with col2:
+                with st.beta_expander('definition for subindicator {}'.format(long_names[i])):
+                    #st.write('here will be displayed the content of file {}.md'.format(i))
+                    st.write(template)
     
     if selection != None:
         fig1 = figure1(2,len(selection),selection, df, sorter, cols)
