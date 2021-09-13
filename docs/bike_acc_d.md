@@ -1,4 +1,4 @@
-percent of deadly accidents of all accidents with motorised vehicles involved 
+percent of deadly accidents of all accidents with bicycles involved 
 #### Definition
 
 #### Data source

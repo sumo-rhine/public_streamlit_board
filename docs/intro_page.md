@@ -19,11 +19,21 @@ You can find general information here and see first data like population, popula
 
 #### indicators
 On the *indicators* page you can
+
 1. select an indicator you are interested in from the dropdown menu in the sidebar on the left. Some basic information about the indicator is displayed. Below you will find expandable boxes of the subindicators with more information.
-2. sort the appearing plot by one of its subindicators from another dropdown menu on the left sidebar. Additionally, you can sort by population,  population density, area or urban area.
+
+2. sort the appearing plot by one of its subindicators from another dropdown menu on the left sidebar. Additionally, you can sort by population, population density, area or urban area.
+
 3. check or uncheck single subindicators to appear or disappear from the plot.
 
+
 #### subindicators
+The *subindicator* page allows you to select from all subindicators, independent of their indicator association. You can select up to 5 subindicators.
+You have the possibility to sort the barchart by the selected subindicators and by population, population density, area or urban area.
 
 #### cities
+On the *cities* page, you can select up to 5 cities and compare their values to each other. 
 
+***
+
+To get a first impression on our cities, you find a figure below providing some general information on population and area. By clicking the buttons, you can sort the figure.
