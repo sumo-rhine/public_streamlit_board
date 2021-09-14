@@ -204,10 +204,10 @@ if mode == 'subindicators':
         fig1 = figure1(2,5,selection, df, sorter)
         st.plotly_chart(fig1, use_container_width=True)
 
-    if sorter == None:
-        sorter = 'Population'
-    fig2 = figure1(2,5,info_columns, df, sorter)
-    st.plotly_chart(fig2, use_container_width=True)
+    # if sorter == None:
+    #     sorter = 'Population'
+    # fig2 = figure1(2,5,info_columns, df, sorter)
+    # st.plotly_chart(fig2, use_container_width=True)
 
     if st.checkbox('View dataframe'):
         st.dataframe(df)
