@@ -124,9 +124,13 @@ if mode == 'indicators':
 
     if indicator == 'all':
         st.write('# Overview of all indicators')
+        with st.expander('indicator calculation'):
+            #st.write('here will be displayed the content of file {}.md'.format(i))
+            st.write('the indicators are calculated on a rank based approach')        
         st.sidebar.markdown('## Sort by ...')
-        ind_sorter = st.sidebar.selectbox('to sort by one of the selected subindicators, please select:', ind+info_columns)
-        # ind_sorter = {v: k for k, v in long_names.items()}[ind_sorter]
+        # info_columns_raw = [{v: k for k, v in long_names.items()}[i] for i in info_columns]
+        ind_sorter = st.sidebar.selectbox('to sort by one of the selected subindicators, please select:', ind) #+info_columns_raw)
+        # ind_sorter = {v: k if k in long_names.keys() else for k, v in long_names.items()}[ind_sorter]
         standard_ind = figure1(2,len(df_ind_pure.columns),df_ind_pure.columns, df_ind_pure, ind_sorter)
         st.plotly_chart(standard_ind, use_container_width=True)
     else:
@@ -236,7 +240,7 @@ if mode == 'cities':
             counter=0
             for city, col in zip(city_sel, itertools.cycle(cols)):
                 with col:
-                    fig = px.line_polar(df_ind_pure.loc[[city]].T, r=df_ind_pure.loc[[city]].T[city], theta=df_ind_pure.loc[[city]].T.index, line_close=True, title=city)
+                    fig = px.line_polar(df_ind_pure.loc[[city]].T, r=df_ind_pure.loc[[city]].T[city], theta=df_ind_pure.loc[[city]].T.index, line_close=True, title=city, range_r=[0,10])
                     st.plotly_chart(fig)
 
 
