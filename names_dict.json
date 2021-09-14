@@ -59,5 +59,24 @@
     "accessibility_poi_sum_restrnts_iso_approximated_transit_600sec": "restaurants accessible by public transport in 5 min", 
     "accessibility_poi_sum_shopping_iso_approximated_transit_600sec": "shopping accessible by public transport in 5 min", 
     "accessibility_poi_sum_business_iso_approximated_transit_600sec": "businesses accessible by public transport in 5 min",
-    "accessibility_poi_sum_eduinsts_iso_approximated_transit_600sec": "educations accessible by public transport in 5 min"
+    "accessibility_poi_sum_eduinsts_iso_approximated_transit_600sec": "educations accessible by public transport in 5 min",
+    "ev_charging_station_density": "electric charging station density",
+    "pop_near_pt": "population close to public transport",
+    "pt_impaired": "public transport stations accessible for impaired",
+    "accessible_functions_by_bike": "accessible functions by bike",
+    "accessible_functions_by_pt": "accessible functions by public transport",
+    "accessible_functions_by_walk": "accessible functions by walking",
+    "accessible_functions_by_car": "accessible functions by walk",
+    "travel_time_regional_centers_pt": "travel time to regional centers by public transport",
+    "travel_time_regional_centers_car": "travel time to regional centers by car",
+    "travel_speed_regional_centers_pt": "travel speed to regional centers by public transport",
+    "travel_speed_regional_centers_car": "travel speed to regional centers by car",
+    "density_business": "density of businesses",
+    "density_education": "density of education",
+    "density_medical_services": "density of medical services",
+    "density_shopping": "density of shopping",
+    "density_leisure": "density of leisure",
+    "slope": "slope",
+    "bike_service_stations": "bike service stations"
+
 }

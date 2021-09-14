@@ -29,12 +29,12 @@ sind_map = [
         "sql": "ratio_truckacc_urban_func.sql",
         "rank_ascending": False,
     },
-    {
-        "ind": "bikeability",
-        "sind": "bike_service_stations",
-        "sql": "bike_service_stations_func.sql",
-        "rank_ascending": True,
-    },
+    # {
+    #     "ind": "bikeability",
+    #     "sind": "bike_service_stations",
+    #     "sql": "bike_service_stations_func.sql",
+    #     "rank_ascending": True,
+    # },
     {
         "ind": "walkability",
         "sind": "30kmh_speed_limit",
@@ -73,12 +73,12 @@ sind_map = [
         "rank_ascending": True,
     },
     # {"ind": "walkability", "sind": "pop_near_park", "sql": "pop_near_parks.sql"},
-    {
-        "ind": "walkability",
-        "sind": "park_ensas",
-        "sql": "park_pop_share_urban_func.sql",
-        "rank_ascending": True,
-    },
+    # {
+    #     "ind": "walkability",
+    #     "sind": "park_ensas",
+    #     "sql": "park_pop_share_urban_func.sql",
+    #     "rank_ascending": True,
+    # },
     {
         "ind": "public_transport",
         "sind": "serv_freq",

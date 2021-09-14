@@ -13,6 +13,7 @@ import numpy as np
 import json
 from pathlib import Path
 import itertools
+import indicator_map as im
 
 BASEPATH = os.path.abspath(os.path.dirname(__file__))
 
@@ -39,7 +40,12 @@ indicators = {
                       'accessibility_poi_sum_eduinsts_iso_approximated_transit_600sec']
 }
 
-def figure1(rows, cols, indices, df, sorter, colors):
+indicators = {}
+for i in im.get_all_ind():
+    indicators[i] = im.get_sind_of_ind(i)
+
+
+def figure1(rows, cols, indices, df, sorter):
     titles = [long_names[i] if i in long_names.keys() else i for i in indices]
     fig = make_subplots(rows=rows, cols=cols, 
                         shared_yaxes=True, 
@@ -52,9 +58,9 @@ def figure1(rows, cols, indices, df, sorter, colors):
         fig.add_trace(go.Bar(x=df.sort_values(sorter, na_position='first')[sel].values, 
                                     y=df.sort_values(sorter, na_position='first')[sel].index, 
                                     orientation='h'), row=1, col=i+1)
-        #fig.update_traces(row=1, col=i+1, marker_color=colors[i])
+        fig.update_traces(row=1, col=i+1, marker_color='rgb(49, 173, 230)')
         fig.add_trace(go.Histogram(x=df[sel]), row=2, col=i+1)
-        #fig.update_traces(row=2, col=i+1, marker_color=colors[i])    
+        fig.update_traces(row=2, col=i+1, marker_color='rgb(49, 173, 230)')    
         
     return fig
 
@@ -77,7 +83,7 @@ for i in ['id', 'geom', 'Admin ID', 'Country', 'Population', 'pop_dens', 'area_k
 # info_columns = ['Population', 'pop_dens', 'area_km2', 'urban_share']
 info_columns = ['Population', 'Population density', 'Area', 'Urban Area']
 
-cols = plotly.colors.DEFAULT_PLOTLY_COLORS
+# cols = ['rgb(49, 173, 230)'] #plotly.colors.DEFAULT_PLOTLY_COLORS
 
 
 # st.write('''
@@ -98,7 +104,7 @@ if mode == 'info':
     sorter = st.radio('', options=info_columns)
     sorter = {v: k for k, v in long_names.items()}[sorter]
     selection = [{v: k for k, v in long_names.items()}[i] for i in info_columns]
-    fig2 = figure1(2,5,selection, df, sorter, cols[4:])
+    fig2 = figure1(2,5,selection, df, sorter)
     st.plotly_chart(fig2, use_container_width=True)
 
     # st.write('''
@@ -114,19 +120,23 @@ if mode == 'indicators':
     ind_selection = ind_sel #[long_names[i] if i in long_names.keys() else i for i in indicators[indicator]]
 
     st.sidebar.markdown('## Please select one indicator')
-    indicator = st.sidebar.selectbox('select one indicator to have a closer look at the subindicators', ind, index=7, help='wip')
+    indicator = st.sidebar.selectbox('select one indicator to have a closer look at the subindicators', ind, index=10, help='wip')
 
     if indicator == 'all':
+        st.write('# Overview of all indicators')
         st.sidebar.markdown('## Sort by ...')
         ind_sorter = st.sidebar.selectbox('to sort by one of the selected subindicators, please select:', ind+info_columns)
         # ind_sorter = {v: k for k, v in long_names.items()}[ind_sorter]
-        standard_ind = figure1(2,len(df_ind_pure.columns),df_ind_pure.columns, df_ind_pure, ind_sorter, cols)
+        standard_ind = figure1(2,len(df_ind_pure.columns),df_ind_pure.columns, df_ind_pure, ind_sorter)
         st.plotly_chart(standard_ind, use_container_width=True)
     else:
         st.sidebar.markdown('## Sort by ...')
         selection = [long_names[i] if i in long_names.keys() else i for i in indicators[indicator]]
+
+        # selection = [i if i in long_names.keys() selection 
         sorter = st.sidebar.selectbox('to sort by one of the selected subindicators, please select:', selection+info_columns)
 
+        st.sidebar.write("**here you can check/uncheck which of the indicators' subindicators should be displyed**")
         checks = [True] * len(selection)
         for i, subind in enumerate(selection):
             if st.sidebar.checkbox(subind, value=True):
@@ -145,7 +155,7 @@ if mode == 'indicators':
         st.write(ind_template)
         # st.write('# here is the definition of indicator {}'.format(indicator))
 
-        col1, col2 = st.beta_columns(2)
+        col1, col2 = st.columns(2)
         for no, i in enumerate(selection):
             # titles = [long_names[i] if i in long_names.keys() else i for i in indices]
             try:
@@ -155,17 +165,17 @@ if mode == 'indicators':
             
             if (no%2)==0:
                 with col1:
-                    with st.beta_expander('definition for subindicator {}'.format(long_names[i])):
+                    with st.expander('definition for subindicator {}'.format(long_names[i])):
                         #st.write('here will be displayed the content of file {}.md'.format(i))
                         st.write(template)
             else:
                 with col2:
-                    with st.beta_expander('definition for subindicator {}'.format(long_names[i])):
+                    with st.expander('definition for subindicator {}'.format(long_names[i])):
                         #st.write('here will be displayed the content of file {}.md'.format(i))
                         st.write(template)
         
         if selection != None:
-            fig1 = figure1(2,len(selection),selection, df, sorter, cols)
+            fig1 = figure1(2,len(selection),selection, df, sorter)
             st.plotly_chart(fig1, use_container_width=True)
 
         if sorter == None:
@@ -191,12 +201,12 @@ if mode == 'subindicators':
     sorter = {v: k for k, v in long_names.items()}[sorter]
 
     if selection != None:
-        fig1 = figure1(2,5,selection, df, sorter, cols)
+        fig1 = figure1(2,5,selection, df, sorter)
         st.plotly_chart(fig1, use_container_width=True)
 
     if sorter == None:
         sorter = 'Population'
-    fig2 = figure1(2,5,info_columns, df, sorter, cols[4:])
+    fig2 = figure1(2,5,info_columns, df, sorter)
     st.plotly_chart(fig2, use_container_width=True)
 
     if st.checkbox('View dataframe'):
@@ -222,7 +232,7 @@ if mode == 'cities':
                     fig.add_trace(go.Scatterpolar(r=r, theta=theta, mode='lines', name=city))
                 st.plotly_chart(fig, use_container_width=True)
         else:
-            cols = st.beta_columns(len(city_sel) // 2 +1)
+            cols = st.columns(3) #st.columns(len(city_sel) // 2 +1)
             counter=0
             for city, col in zip(city_sel, itertools.cycle(cols)):
                 with col:
